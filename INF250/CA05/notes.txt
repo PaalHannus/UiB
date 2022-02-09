@@ -1,0 +1,125 @@
+CA05 (Final course assignment)
+
+General
+	About machine learning
+	Three tasks
+	Each is a different aspect of machine learning
+
+
+Linear Discriminant Analysis (LDA) - 25%
+	Working on the iris-fisher dataset
+	Link does not work?
+	
+	Quite small dataset (150 samples)
+	Four features
+		Septal/Petal - Length/width
+	Three categories
+		Flower types
+
+	Already included in matlab, can be loaded directly from matlab
+	(fisheriris.mat)
+
+	
+	First actual part
+		Visualize the data
+		Check if data is nice, outliers, ...
+		Create four histograms (Experiment, want to maximize expressiveness)
+
+	Pretty straigt forward. 
+	Dataset is already sorted
+		First 50 is same flower
+		Second 50 is another flower
+		Etc...
+
+
+	Second part:
+		Check that data is normally distributed (follows gaussian)
+		Do Jarque-Bera test
+			Might not get perfect results (Some data may not follow curve)
+			Just comment on unexpected occurances
+			jbtest(x) <- from matlab
+			Give jbtest the data, it returns either 1 or 0 based on if we pass the test or not. (See docs)
+			Want to check individual categories (12 tests in total!)
+				Split columns
+
+
+	Third part: (Calculation part)
+		Use predecided features (petal length, petal width)
+		Scatter datapoints petal_length-axis, petal_width axis, use gscatter (Easy to distinguish categories, group by categories(flower type) not features)
+		In same plot, draw lines from classifier, line that divides the categories.
+			Allowed to use matlab functions (fitcdiscr)
+
+
+	Summary, explain what we learned...
+
+
+Decision Trees (Second part) - 25%
+
+	Same dataset
+	Use all datafeatures (All four features)
+	fitctree function in matlab (Gives the tree, so we do not have to calculate it ourselfs)
+		fitctree(tbl, Y) - Y is datanames?
+		Returns a classification tree object, can be used to view 
+		Use view- function so see tree.
+		Can be given params to show graphical version
+
+	Three or four lines of code to generate and show tree.
+
+
+	Main part: Validation part
+		Validate the tree / Check how good it at describing the dateset
+		Can use built-in functions
+		k-fold (crossval (params: k-fold crossvalidation))
+	
+
+		LOOCV (Leave one out cross val)
+			Manually implement, calculate
+
+
+Bayesian Networks - 50% 
+	More creative (More fun?)
+	Bayes Net Toolbox (From github)
+	When submitting, do not include the files (assume graders have it installed)
+
+	First part is installing toolbox, and how to use it.
+	First tasks are in the examples (can follow their implementation)
+
+	Evaluate the implementation, by calculating the probabilities
+	Both are done in the same example (Computing marginal ditributions)
+
+
+	Second part is using the toolbox to make predictions based on out network.
+		More creative / Come up with our own scenario
+		Might be difficult, come up with something that seems "sort of probable / sort of real"
+		Atleast 6 nodes, and tables for all probs (draw network including tables)
+		Implement similar to before, with our new scenario, try to find interesting problems
+
+	Summary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

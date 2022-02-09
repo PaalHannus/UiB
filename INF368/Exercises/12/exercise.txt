@@ -1,0 +1,28 @@
+Exercise 1:
+
+Concept: 
+Horse ⊓ ∃finding.Wings ⊓ ∃finding.Horns
+
+Concept inclusion:
+Pegasus ⊆ Horse ⊓ ∃finding.Wings ⊓ ∃finding.Horns
+
+If the horse were to have additional features it might no longer be classified as a Pegasus. Say a lions-head. Thus a pegasus is a subset of a horse with wings and horns. 
+
+
+Exercise 2:
+TRUE:
+Simons parents are cats
+	Simon is a cat
+Simon does not prey on Pumbaa
+	Pumbaa might not be a small animal
+
+FALSE:
+Cecil is a lion
+A lion is a cat
+Cecil preys on buffalo
+	Buffalo are small animals (Fallacy in definition?)
+
+OR
+Pumbaa preys on small animals (Bugs mostly)
+Pumbaa is a cat
+Transitive fallacy, the fact that pumbaa preys on small animals does not mean he is a cat. 

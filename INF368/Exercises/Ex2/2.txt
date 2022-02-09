@@ -1,0 +1,62 @@
+Exercise 1:
+
+1) 
+Collocations are words that "go together", and simply sound "right" to a native speaker.
+
+2)
+Limited compositionality (New meaning when combining words)
+Limited substitutability (Cannot use other words with similar meanings, it will not sound right)
+Limited modifiability 
+Difficult to translate to another language directly. (The meaning of the expression might get lost in translation)
+
+3)
+Fast food vs quick food
+Booming economy vs flourishing economy
+Filled with horror vs filled with nervousness
+
+4)
+*  -----------------------------------------
+*  |Tag |     Pattern Example              |
+*  -----------------------------------------
+*  |AN  | linear function                  |
+*  |NN  | regression coefficients          |
+*  |AAN | Gaussian random variable         |                   
+*  -----------------------------------------
+*  Where A=adjective, P=preposition, & N=noun.
+
+Tag patterns denote the word type of a collocation
+(Example from stackoverflow)
+
+
+Exercise 2:
+
+1)
+Can find the frequency of each individual word, and compare it to the frequency of the bigram consisting of the two words. If frequency is much larger than expected, it is probably a collocation.
+
+2)
+The technique does not require any previous knowledge of the language, which is a huge advantage. It makes the technique a very powerful tool in a data scientists toolbox.
+The technique seems to find names that occure often aswell as compound words. Which might not be collocations
+
+
+Exercise 3:
+
+
+Expensive
+14500/15000000=0,001
+
+Wine
+4500/15000000=0,0003
+
+Expensive wine
+7/14999999=4.7e-7
+
+Expensive * Wine = 3e-7
+
+
+4.7e-7 - 3e-7
+--------------------------------
+Sqrt( 4.7e-7 / 15000000)
+
+= 0.96
+
+Not a collocation

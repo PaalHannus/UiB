@@ -1,0 +1,52 @@
+% parameter setting
+tau = 1;        % this is just a place holder!
+beta = 0.5;     % this is just a place holder!
+
+grid = z_flipped;
+
+
+sobel_filter = [-1 0 1; -2 0 2; -1 0 1]
+sobel_filter2 = [1 2 1; 0 0 0; -1 -2 -1]
+
+% dx = horizontal derivates, dy = vertical derivatices ("Central difference")
+dx = - conv2(grid, sobel_filter, "same");
+dy = conv2(grid, sobel_filter2, "same");
+
+curr_x = peak(1) - 50
+curr_y = peak(2) + 20% peak(2) - 20
+
+startx = curr_x;
+starty = curr_y;
+dx(startx)
+dy(starty)
+% Momentum
+vtx = 0;
+vty = 0;
+
+n = 140;
+test_x = zeros(1,n);
+test_y = zeros(1,n);
+
+for i = 1:n
+    test_x(i) = curr_x;
+    test_y(i) = curr_y;
+    % Gradients
+
+    dx_ = dx(curr_x, curr_y);
+    dy_ = dy(curr_x, curr_y);
+    gradient = [dx_, dy_] / norm([dx_, dy_]);
+    
+    vtx = beta * vtx + tau * gradient(1);
+    vty = beta * vty + tau * gradient(2);
+    
+    curr_x = round(curr_x + vtx);
+    curr_y = round(curr_y + vty);
+    
+    
+end
+
+imshow(I)
+hold on
+plot(starty, startx, "*r")
+plot(test_y, test_x, "r")
+hold off

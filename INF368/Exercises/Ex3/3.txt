@@ -1,0 +1,75 @@
+
+Exercise 1:
+"I want english food"
+P( i | <s> ) = 0.25
+P( want | i ) = 0.33
+P( english | want ) = 0.0011
+P( food | english ) = 0.5
+P(</s> | food ) = 0.68
+
+P("I want english food") = 0.000030855
+~= 3 * 10^-5
+
+"I want chinese food"
+P( i | <s> ) = 0.25
+P( want | i ) = 0.33
+P( chinese| want ) = 0.0065
+P( food | chinese ) = 0.52
+P(</s> | food ) = 0.68
+
+P("I want chinese food") = 0.000189618
+~= 1.9 * 10^-4
+
+
+The probabilities are affected by the previous word. That means the frequency the words occur next to each other influences the frequency. You can also argue that the frequency of each single word affects the probability.
+
+
+Exercise 2:
+
+- add-k: is a technique used to combat the fact that simple MLE models give unseen words a probability of 0. So by adding a small amount when calculating the MLE we can ensure that all words have a slight probability.
+
+- Backoff: is a technique used when a n-gram has a probability of 0. Instead of setting the probability to 0, we reduce the n-gram size to n-1. Then look at the new probability.
+
+Example from quora (https://www.quora.com/What-is-backoff-in-NLP)
+"""Let's say you are using 4-grams to calculate the probability of a word in text. You have "this is a very" followed by "sunny". Let's say "sunny" never ocurred in the context "this is a very" so for the 4-grams model "sunny" has probability 0, and that's not good because we know that "sunny" is more probable than say "giraffe".
+
+Backoff means you go back to a n-1 gram level to calculate the probabilities when you encounter a word with prob=0. So in our case you will use a 3-gram model to calculate the probability of "sunny" in the context "is a very"."""
+
+- Interpolation: combines the probabilities of the different n-grams to find a "more holistic/complete" estimate of the probability. 
+
+
+A combination of add-k and interpolation would probably work quite well. add-k to remove the 0 probabilities, and interpolation to get a good estimate.
+
+
+
+Exercise 3:
+<s> Sink flies like flowers </s>
+<s> Drain flies like dust </s>
+
+P( Sink | <s> ) = 1/2
+P( flies | sink ) = 1/1
+P( like | flies) = 1/1
+P( flowers | like ) = 1/2
+P( </s> | flowers ) = 1/1
+
+As we have added 1 to the numerator, we have to normalize that by adding the count of unique words with the denominator in order to normalize.
+
+
+Exercise 4:
+
+The held out corpora is the testset. A part of the corpus that the model is not trained on / has never seen.
+Training on the test set is when we train the model on the same part of the corpus that we use to evaluate the model. This leads to the model getting artificially high accuracy.
+
+Extrinsic evaluations are based comparing your language model with other models by considering standard benchmarks. A problem with this is that it says nothing about how the model works on other data sets/data sources. It might also be quite slow
+
+Intrinsic evaluation does not depend on the application. However we must split the data set into a training set and a test set. The evaluation is based on how well the model does on the unseen test set. This approach leads to us having less training data.
+
+Minimizing perplexity, increases test set prob, thus a small perplexity is good. Models with smaller perplexities usually perform better, this perplexity can be used as a comparison metric. 
+
+It means model A is "less perplexed" by the test set. Which in essence means it understands the language better. It has assigned a higher probability to the test set.
+
+It depends on the technique used. Some techniques will assign a probability of 0 to unseen words (words not in training set). This is of course not correct. 
+
+The perplexity equals 10
+nthroot (( 1 / (1/10))^n) == 10
+

@@ -1,0 +1,125 @@
+Course assignment 3:
+
+Two parts:
+	Similar to the first assignment and SVD part
+		Step by step
+
+Bezier and Catmull-Rom slines:
+	"Select control points and draw splines"
+
+	Plan a boat trip around the world.
+
+	Select control point such that the path doesnt intersect with land.
+	Path is smooth
+
+
+	Create new figure.
+		Not just imshow
+		Gets new window
+	
+	Add control points and curves on top of image
+		hold on -> Make sure drawings are on top.
+
+	Support user input
+		ginput -> look at docs (Pretty simple)
+		Left click save x and y, middle/right click save control point and exit.
+
+
+		Use while loop that checks if button is middle/right to break while.
+
+
+
+
+	Fill matrices
+		(4x4 for each spline type)
+
+
+	Draw the splines
+		Draw a smooth animation
+			Addpoints and drawnow (Nice animation)
+		
+		Save figure and insert into assignment
+
+
+
+Least Square Approximation - 40%
+	Find your own dataset (Find meaningful, something interesting)
+		A couple of hundre to begin with
+
+
+	Functional form -> For some x we have a y (2D data)
+
+	
+
+	Three approximation
+		Constant
+		Linear
+		Quadratic
+
+		Do not use polyfit
+
+	Draw approximations in same plot
+		All datapoints -> Scatterplot
+		Then draw curves/lines
+		
+
+
+Exercise sheet:
+	Gradient decent:
+		Tensor product patch -> "Ferguson patch"
+		
+		Four points in 3d
+		Linear interpolation that creates the patch
+
+		Formula from slides. Note not hermite matrix (-1 1; 1 0) linear interpolation matrix
+		
+
+Linear programming
+	Make a 2D drawing
+	Draw lines, simplex method
+
+	(ligner på 170)
+
+Taylor
+	Focus on second table
+
+
+	4.3.4 -> make an estimation: "Think about how big the difference in the next step will be"
+
+Numerical integration
+	h is step size, use 1/4 as step size
+
+	Simpsons is a little different
+
+	Functions in the slides
+
+	Fill in numbers and calculate
+
+
+Bayes theorem
+	Identify different events
+	Solve for the missing
+
+
+Statistics
+	Calculate mean median mode var ...
+	Equations in lecture slides
+
+4.7 
+	More difficult
+
+4.8
+	Questions to the videos of Geoff cummings
+	Answer are directly in the videos.
+
+
+
+
+
+
+
+
+
+
+
+	

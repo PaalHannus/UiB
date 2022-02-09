@@ -1,0 +1,179 @@
+
+Notater til CA01:
+	
+Structured around illuminaton
+Make us confertable to using 3d matrices
+	Understand what you are doing
+
+
+Preprocessing
+	No for-loops!
+	Load image of dragon
+		3d matrix (height, width, values per pixel)
+		All rgb values the same -> grayscale
+	
+	Surface plot of image
+		How different colors correspond to the depth
+			Darker further behind, lighter in front
+		Should look like:
+			HeatMapDepth.png
+			Darker = Deeper
+			Head = less deep
+	
+	Not supposed to answer questions by text
+		Just to think about
+	
+Directional Derivatives
+	Estimation
+	central-difference
+		Check next value, and previous value, average = derivative of point
+		How does depth change in y and x direction (directional derivatives)
+
+	Allowed to use loops
+	Or 
+	Matrix operations = Best option to learn matrices (However more complicated, boundry checking)
+	Matrix is faster aswell
+
+
+	Check that we have correct derivatives
+		imgrandientxy -> gradients in x and y direction
+	
+	Can plot the difference as a picture.
+		The difference will be 0 if correct. = Black image
+
+
+Normal Vectors
+	Needed for illumination model
+
+	Use directional derivatives to calc normal vectors
+		Directional derivatives are perpendicular to the normal
+		Normal will be perpendicular to both
+
+	horizontaltangen = 1 in x-dir, 0 in y-dir, depth value is calculated in the previous part.
+	
+	How to find perpendicular vector
+		Cross product = Normal vector for that point
+		Use tangen vector ? 
+	
+	Calculate normal vecotr for each pixel!
+		Stor in large matrix
+
+	
+	Normalize the vectors (for illumination model)
+		Change length, not direction
+
+
+	After normalization values for x,y,z in range(-1, 1)
+
+	Vizualize normalvectors, cannot vizualize negative
+		thus mapping from (-1, 1) to (0,1)
+		( + 1 / 2 ) ?? 1 + 1 / 2 = 1, -1 + 1 / 2 = 0
+
+	Should look like normals.png
+		Globally looks OK
+
+
+
+Illumination model
+	Biggest part
+	
+	Create matrix that holds vectorpositions in each element
+	
+	x, y posistion in 3d, depth = color
+
+	Matrix dimensions (height, width, 3)
+
+
+
+	Calculate light-vector per point
+		Corresponds to a vector from the point to the light source
+		Calculate for each point
+
+		Again (height, width, 3)
+	Normalize these vectors
+
+	Calculate dot-product of normal vectors per point and light vector per point
+		Needed for diffusion and reflection
+		Store in a new matrix
+
+	Vectors pointing in different  directions result in negative dot-product
+		This is refering to points "behind a wall", thus should not get any light
+
+		Logical matrices
+
+
+	Calculate the light color
+		Similar to before
+		Color light vector per pixel
+		(Width, height, 3)
+
+	Calculate diffuse illumination
+		Elementwise -> Per pixel
+		Mulitply dot of light and normal with light intensity (color light)
+
+	Should look like Diffuse.png
+		Light source in the top left corner
+		Point facing this light source should be illuminated
+
+	Calculate specular component
+		Specular illumination term
+		Light dots that are more intense
+		Relices on reflection vector? and our view/camera?
+
+		Calculate V vector per pixel
+			Goes from a point to the eye/camera
+			Take pos of the camera - pos of point
+
+		
+	
+		Calculate R vector per pixel
+			Reflection of the light with the normal
+			Same angle as on other side of normal (point to lightsource)
+			
+			PRØV Å TRANSPOSE DOT
+
+			N dot L = Projection of L onto N
+			Subtract light vector
+			Result is the reflection of light vector
+
+
+		Calculate RdotV (Reflecion dot V)
+		
+		Specular comp
+			R dot V to the power of the specular comp
+
+		Should result in Specular.png
+			Darker image...
+			Result based on shininess and light pos
+
+
+	AmbientLight (Ambient illumination)
+		Constant value per pixel
+		Make matrix with defined values per pixel
+		Ambient.png (Looks black, but slightly dark gray) Can check by changing color
+
+
+	Combine all illuminations
+		Complete illumination model
+
+
+	In the end write some reflections...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

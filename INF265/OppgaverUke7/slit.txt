@@ -1,0 +1,178 @@
+    
+"""
+    
+    for layer in range(2,0,-1):  # Layer (Loops from the back)
+        layer = str(layer)
+        layer_name = "fc"+layer
+        
+        infeatures = getattr(getattr(model, layer_name), 'in_features')
+        outfeatures = getattr(getattr(model, layer_name), 'out_features')
+        model.dL_dw[layer] = torch.zeros([outfeatures, infeatures], requires_grad=False)
+        #print(f"In: {infeatures}    out: {outfeatures}")
+        
+        #print(model.dL_dw[layer])
+        print(getattr(model, layer_name).weight.data)
+        
+        for node in range(outfeatures):
+            DeltaL = dmse(y_true, y_pred) * model.df[layer](model.z[layer])[0][node]
+            for connection in range(infeatures):
+                print(model.a[layer].data[0][node])
+                dl_dw = DeltaL * model.a[layer].data[0][node]
+                #model.dL_dw[layer][node][connection] = 
+            #print(model.dL_dw[layer])
+        
+       # for node in range(outfeatures): # Loop over nodes
+            #if outputlayer:
+                #DeltaL = dmse(y_true, y_pred) * model.df[layer](model.z[layer])[0][node]
+               # dl_dw = DeltaL * model.a[layer].data[0][node] # gradient?
+               # print(dl_dw)
+                #model.dL_dw[layer][node] = dl_dw
+                # dl_dw må være sammen dimensjon som weights siden de skal plusses sammen
+                
+                #print(model.dL_dw[layer])
+            #print(model.a[layer].data[0][node])
+        
+        #for node in range(outfeatures): # Hidden unit in layer
+        #    DeltaL = dmse(y_true, y_pred) * model.df[layer](model.z[layer])[0][node]
+            
+            #for input_ in range(infeatures):
+            #    model.dL_dw[layer][node][input_] = DeltaL 
+
+            #print("Len: ", len(model.a[layer].data[0]))
+            
+            #for j in range(len(model.a[layer].data[0])):
+            #    model.dL_dw[layer][node][j] = 1
+                
+            #[model.dL_dw[layer][node][j]  dL_dw for j in model.a[layer].data[0]]
+            
+            #dL_dw = sum([ ai * DeltaL for ai in model.a[layer].data[0]])
+            
+           # print(model.dL_dw[layer])
+            #[ print(ai) for ai in model.a[layer].data[0]]
+            #print("Error", dL_dw)
+            #print("Delta:",DeltaL)
+            
+            
+            #for infeat in range(infeatures): # Potensielt
+                #print(layer, node, infeat)
+
+            
+        #print(i)
+        #deltaL = dmse(y_true, y_pred) * model.df['2'](model.z['2'])[0][i]
+        #print(deltaL)
+    
+backpropagation(model, test, test2)
+            
+# e' = derivate to loss function
+# f' = derivative of f (Activation function)
+# dmse = Derivative of MSE
+
+# z1 = weights1*x + b1
+# a1 = activation(z)
+
+# z1 = weights2*a1 + b2
+# a1 = activation(z1)
+
+# dz[2] = a[2] - y (Expected value )
+
+# dw[2] = dz[2] * a[2]^T
+# db[2] = dz[2]
+
+#dz[1] = 
+    # Finn m
+    #dZ2 = model.a['2'] - y_true
+    #dW2 = (1/m) * dZ2 * torch.transpose(model.a['1'], 0, 1)
+    #dB2 = (1/m)* np.sum(dZ2, axis=1, keepdims = True)
+    #dZ1 = 
+    
+    
+    #dL = dmse(y_true, model.a['2']) * model.df['2'](model.z['2'])
+    
+    #print(dL)
+    
+    
+    
+    #print(model.df['2'](model.z['2']))
+
+
+
+#model.a['1'][0]
+#delf.df['1'](model.a['1'])
+#model.a['2'] == y_pred
+
+"""
+
+
+
+def backpropagation2(model, y_true, y_pred, dloss=dmse):
+    # Layer 2
+    deltas = []
+    infeatures = model.fc2.in_features
+    outfeatures = model.fc2.out_features
+    
+    model.dL_dw["2"] = torch.zeros([outfeatures, infeatures], requires_grad=False)
+    model.dL_db["2"] = torch.zeros((outfeatures,1), requires_grad=False)
+    
+    for node in range(outfeatures):
+
+        #deltaL = dloss(y_true, y_pred) * model.df["2"](model.z["2"].data).reshape(outfeatures)[node]
+        print("loss", dloss(y_true, y_pred))
+        print(model.z["2"])
+        print(model.df["2"](model.z["2"][node].data))
+        deltaL = dloss(y_true, y_pred) * model.df["2"](model.z["2"][node].data)
+        print(deltaL)
+        print(deltaL.shape)
+        print(model.dL_db['2'][node])
+        model.dL_db['2'][node] = deltaL
+        
+        for connection in range(infeatures):
+            deltas.append(deltaL * model.fc2.weight.data[node][connection])
+            dl_dw = deltaL * model.a["1"][connection].data
+            #dl_dw = deltaL * model.a["1"].data.reshape(infeatures)[connection]
+            model.dL_dw['2'][node][connection] = dl_dw
+
+    # Layer 1
+    infeatures = model.fc1.in_features
+    outfeatures = model.fc1.out_features
+    model.dL_dw["1"] = torch.zeros([outfeatures, infeatures], requires_grad=False)
+    model.dL_db["1"] = torch.zeros([outfeatures], requires_grad=False)
+    for node in range(outfeatures):
+        
+        deltaL = sum(deltas) *  model.df["1"](model.z["1"].data).reshape(outfeatures)[node]
+        model.dL_db['1'][node] = deltaL
+        
+        for connection in range(infeatures):
+            dl_dw = deltaL * model.a["0"].data.reshape(infeatures)[connection]
+            model.dL_dw['1'][node][connection] = dl_dw
+
+def backpropagation3(model, y_true, y_pred, dloss=dmse):
+    # Layer 2
+    deltas = []
+    infeatures = model.fc2.in_features
+    outfeatures = model.fc2.out_features
+    
+    model.dL_dw["2"] = torch.zeros([outfeatures, infeatures], requires_grad=False)
+    model.dL_db["2"] = torch.zeros((outfeatures,1), requires_grad=False)
+    
+    for node in range(outfeatures):
+        deltaL = dloss(y_true, y_pred) * model.df["2"](model.z["2"][0][node].data)
+        
+        model.dL_db['2'][node] = deltaL
+        for connection in range(infeatures):
+            deltas.append(deltaL * model.fc2.weight.data[node][connection])
+            dl_dw = deltaL * model.a["1"][0][connection].data
+            model.dL_dw['2'][node][connection] = dl_dw
+    # Layer 1
+    infeatures = model.fc1.in_features
+    outfeatures = model.fc1.out_features
+    
+    model.dL_dw["1"] = torch.zeros([outfeatures, infeatures], requires_grad=False)
+    model.dL_db["1"] = torch.zeros([outfeatures], requires_grad=False)
+    
+    for node in range(outfeatures):
+        deltaL = sum(deltas) *  model.df["1"](model.z["1"][0][node].data)
+        model.dL_db['1'][node] = deltaL
+        
+        for connection in range(infeatures):
+            dl_dw = deltaL * model.a["0"][0][connection].data
+            model.dL_dw['1'][node][connection] = dl_dw

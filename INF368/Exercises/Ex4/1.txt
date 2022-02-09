@@ -1,0 +1,27 @@
+P(Home office = Y) = 2/5
+P(Music = Jazz) = 3/5
+P(Music = Classical) = 2/5
+P(ToY = Spring) = 1/5
+P(ToY = Summer) = 2/5
+P(ToY = Winter) = 2/5
+
+Truth: Home office = Y, ToY = Summer
+
+P(Music = J | H = N, S)
+= P(Jazz) * P(H = N | Jazz) * P(S | Jazz)
+  ---------------------------------------
+	P(H = N) * P(S)
+
+3/5 * 2/3 * 2/3 = 0,2667 = 12/45
+
+
+P(Music = J | H = N, S)
+= P(Classical) * P(H = N | Classical) * P(S | Classical)
+  -------------------------------------------------------
+	P(H = N) * P(S)
+
+2/5 * 1/2 * 0 = 0 
+
+12/45 > 0
+
+Naive bayes would predict Jazz
